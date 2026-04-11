@@ -55,7 +55,7 @@ export const registerParticipant = async ({
       type: "success",
       content: "Participant registered successfully",
     });
-    // Button stays disabled on success — user navigates away via notification onClose
+    setLoading(false); // Re-enable button on success
   } else {
     openNotificationWithIcon({
       type: "error",
