@@ -193,6 +193,110 @@ const About = () => {
             shine! Good luck! 🚀
           </p>
         </section>
+        <section>
+          <h2 className="mb-4 text-center font-mono text-3xl font-bold text-white sm:text-4xl">
+  Glimpse of <span className="text-yellow-400">Code Clash 1.0</span> ✨
+</h2>
+           <p className="text-center text-gray-400 text-sm sm:text-base mb-6">
+  Hover on images to explore highlights
+</p>         
+           <div className=" w-[1050px] grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 px-6  sm:px-12">
+
+  {/* Card 1 */}
+  <div className="relative group rounded-xl p-[2px] 
+bg-[linear-gradient(120deg,#ffd700,#fff176,#ffea00,#ffd700)] 
+shadow-[0_0_12px_rgba(255,215,0,0.4)] 
+cursor-pointer">
+
+  <div className="relative rounded-xl overflow-hidden 
+  bg-black/70 backdrop-blur-sm"></div>
+    <div className="relative rounded-xl overflow-hidden bg-black">
+      <img src="https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900905/cweosgvs3mqvtypv1kkg_jnr3ln.webp" alt="Winner"
+        className="w-full h-64 object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75"/>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+        <p className="text-white text-lg elegant-text text-center">
+          Winner 🏆
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Card 2 */}
+  <div className="relative group rounded-xl p-[2px] bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 shadow-[0_0_12px_rgba(255,215,0,0.5)] cursor-pointer">
+    <div className="relative rounded-xl overflow-hidden bg-black">
+      <img src="https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/e011acue8r5uzcojowph_pl0ipq.webp" alt="Final Round"
+        className="w-full h-64 object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75"/>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+        <p className="text-white text-lg elegant-text text-center">
+          Final Round Moments
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Card 3 */}
+  <div className="relative group rounded-xl p-[2px] bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 shadow-[0_0_12px_rgba(255,215,0,0.5)] cursor-pointer">
+    <div className="relative rounded-xl overflow-hidden bg-black">
+      <img src="https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/ijxqwdx2loat6fxvatnp_xtahdh.webp" alt="Coding"
+        className="w-full h-64 object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75"/>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+        <p className="text-white text-lg elegant-text text-center">
+          Coding in Action
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Card 4 */}
+  <div className="relative group rounded-xl p-[2px] bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 shadow-[0_0_12px_rgba(255,215,0,0.5)] cursor-pointer">
+    <div className="relative rounded-xl overflow-hidden bg-black">
+      <img src="https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/byyokjiilcd76bhhjrsc_lefmum.webp" alt="Participants"
+        className="w-full h-64 object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75"/>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+        <p className="text-white text-lg elegant-text text-center">
+          All Participants
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Card 5 */}
+  <div className="relative group rounded-xl p-[2px] bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 shadow-[0_0_12px_rgba(255,215,0,0.5)] cursor-pointer">
+    <div className="relative rounded-xl overflow-hidden bg-black">
+      <img src="https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/i7sfubqhit8bbmjnsysp_ehw19o.webp" alt="Highlights"
+        className="w-full h-64 object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75"/>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+        <p className="text-white text-lg elegant-text text-center">
+          Event Highlights
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Card 6 */}
+  <div className="relative group rounded-xl p-[2px] bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 shadow-[0_0_12px_rgba(255,215,0,0.5)] cursor-pointer">
+    <div className="relative rounded-xl overflow-hidden bg-black">
+      <img src="https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/cftqedvrumgtyv3h93o9_jmtcor.webp" alt="Fun"
+        className="w-full h-64 object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75"/>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+        <p className="text-white text-lg elegant-text text-center">
+          Recognition
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>  
+          
+
+
+        </section>
       </div>
     </div>
   );

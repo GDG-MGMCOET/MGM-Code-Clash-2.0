@@ -16,3 +16,9 @@ html {
     #000000 93.77%
   );
 }
+
+.elegant-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  letter-spacing: 1px;
+}

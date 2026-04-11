@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 10);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full bg-[#00000044] px-6 py-2 font-body font-bold text-accent shadow-xl backdrop-blur-md">
+    <header
+  className={`fixed top-0 z-50 bg-[#00000044] px-6 py-2 font-body font-bold text-accent shadow-xl transition-all duration-300 ${
+    isScrolled
+  ? "left-2 right-2 rounded-full"
+  : "left-0 right-0 rounded-none"
+  }`}
+>
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/">
           <img
