@@ -1,4 +1,7 @@
 import React from "react";
+import keyboardImg from "../assets/prizes/final_keyboard.png";
+import mouseImg from "../assets/prizes/final_mouse.png";
+import earbudsImg from "../assets/prizes/final_earbud.png";
 
 const About = () => {
   return (
@@ -141,9 +144,36 @@ const About = () => {
         </section>
 
         <section>
-          <h2 className="mb-4 text-center font-mono text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mb-8 text-center font-mono text-3xl font-bold text-white sm:text-4xl">
             Prizes
           </h2>
+          
+          <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {/* Keyboard */}
+            <div className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all hover:border-accent/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+              <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
+                <img src={keyboardImg} alt="Mechanical Keyboard" className="h-full w-full object-contain animate-float drop-shadow-[0_0_20px_rgba(255,200,0,0.2)] transition-transform duration-300 group-hover:scale-110" />
+              </div>
+              <h3 className="text-center text-xl font-bold text-white group-hover:text-yellow-400"> Keyboard</h3>
+            </div>
+            
+            {/* Mouse */}
+            <div className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all hover:border-accent/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+              <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
+                <img src={mouseImg} alt="Gaming Mouse" className="h-full w-full object-contain animate-float-delayed drop-shadow-[0_0_20px_rgba(255,200,0,0.2)] transition-transform duration-300 group-hover:scale-110" />
+              </div>
+              <h3 className="text-center text-xl font-bold text-white group-hover:text-yellow-400"> Mouse</h3>
+            </div>
+            
+            {/* Earbuds */}
+            <div className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all hover:border-accent/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+              <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
+                <img src={earbudsImg} alt="TWS Earbuds" className="h-full w-full object-contain animate-float-slow drop-shadow-[0_0_20px_rgba(255,200,0,0.2)] transition-transform duration-300 group-hover:scale-110" />
+              </div>
+              <h3 className="text-center text-xl font-bold text-white group-hover:text-yellow-400"> Earbuds</h3>
+            </div>
+          </div>
+
           <div className="space-y-6">
             <div>
               <h3 className="text-xl font-semibold text-yellow-400 sm:text-2xl">
