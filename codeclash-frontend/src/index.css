@@ -34,3 +34,9 @@ html {
 .animate-float-slow {
   animation: float 5s ease-in-out 1s infinite;
 }
+
+.elegant-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  letter-spacing: 1px;
+}

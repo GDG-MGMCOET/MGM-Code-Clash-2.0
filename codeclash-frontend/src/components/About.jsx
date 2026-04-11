@@ -1,227 +1,457 @@
-import React from "react";
-import keyboardImg from "../assets/prizes/final_keyboard.png";
-import mouseImg from "../assets/prizes/final_mouse.png";
-import earbudsImg from "../assets/prizes/final_earbud.png";
+import React, { useEffect, useRef } from "react";
+import keyboardImg from "../assets/prizes/keyboard1.png";
+import mouseImg from "../assets/prizes/mouse1.png";
+import earbudsImg from "../assets/prizes/Adobe Express - file.png";
+import kickrLogo from "../assets/prizes/kickr_logo.webp";
+import gajoobaLogo from "../assets/prizes/Gajooba-PNG-1536x459.webp";
 
+/* ── Solid teal heading ── */
+const H = ({ level = 2, children, className = "" }) => {
+  const base = {
+    color: "#00FFC2",
+    fontFamily: "monospace",
+    fontWeight: "700",
+  };
+  if (level === 1)
+    return <h1 className={`mb-4 text-center text-3xl sm:text-4xl ${className}`} style={base}>{children}</h1>;
+  return <h2 className={`mb-4 text-center text-3xl sm:text-4xl ${className}`} style={base}>{children}</h2>;
+};
+
+/* ── Gradient accent text (inline) ── */
+const G = ({ children }) => (
+  <span style={{ backgroundImage: "linear-gradient(to right,#00FFC2,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+    {children}
+  </span>
+);
+
+/* ── Canvas glitter particles ── */
+const GlitterCanvas = () => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let raf;
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const COUNT = 120;
+    const particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random(),
+      speed: Math.random() * 0.004 + 0.002,
+      phase: Math.random() * Math.PI * 2,
+      hue: Math.random() > 0.5 ? "0,255,194" : "168,85,247",
+    }));
+
+    const draw = (t) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        const a = 0.15 + 0.6 * Math.abs(Math.sin(p.phase + t * p.speed));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue},${a})`;
+        ctx.fill();
+      });
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+  return (
+    <canvas
+      ref={ref}
+      style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0 }}
+    />
+  );
+};
+
+/* ── Sponsors data ── */
+const sponsors = [
+  {
+    name: "Kickr Technology",
+    logo: kickrLogo,
+    darkBg: true,
+    url: "https://www.kickrtechnology.in",
+  },
+  {
+    name: "Gajooba",
+    logo: gajoobaLogo,
+    darkBg: false,
+    url: "https://www.gajooba.com",
+  },
+];
+
+const REPEAT = 8;
+const marqueeItems = Array.from({ length: REPEAT }, () => sponsors).flat();
+
+function SponsorLogo({ sponsor }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexShrink: 0,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "12px",
+        padding: "12px 24px",
+        margin: "0 24px",
+        height: "64px",
+        width: "176px",
+        background: sponsor.darkBg ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.95)",
+        border: sponsor.darkBg ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(255,255,255,0.3)",
+      }}
+    >
+      <img
+        src={sponsor.logo}
+        alt={sponsor.name}
+        style={{ height: "100%", width: "auto", maxWidth: "120px", objectFit: "contain" }}
+      />
+    </div>
+  );
+}
+
+/* ── Sponsors Section ── */
+const Sponsors = () => {
+  return (
+    <section style={{ position: "relative", padding: "5rem 0 4rem" }}>
+      {/* Divider line top */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "80%",
+        height: "1px",
+        background: "linear-gradient(to right, transparent, rgba(0,255,194,0.25), rgba(168,85,247,0.25), transparent)",
+      }} />
+
+      <div style={{ position: "relative", zIndex: 1 }}>
+        {/* Heading */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", marginBottom: "3rem", padding: "0 24px" }}>
+          <p style={{
+            fontFamily: "monospace",
+            fontSize: "11px",
+            fontWeight: "600",
+            letterSpacing: "0.3em",
+            color: "#00FFC2",
+            textTransform: "uppercase",
+            margin: 0,
+          }}>
+            Powered By
+          </p>
+          <h2 style={{
+            fontFamily: "monospace",
+            fontSize: "2rem",
+            fontWeight: "700",
+            color: "#ffffff",
+            margin: 0,
+          }}>
+            Our Sponsors
+          </h2>
+          {/* Gradient underline */}
+          <div style={{
+            marginTop: "8px",
+            height: "1px",
+            width: "96px",
+            background: "linear-gradient(to right, transparent, #00FFC2, #a855f7, transparent)",
+          }} />
+        </div>
+
+        {/* Sponsor Cards */}
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "2.5rem",
+          padding: "0 24px",
+          marginBottom: "3.5rem",
+        }}>
+          {sponsors.map((sponsor) => (
+            <a
+              key={sponsor.name}
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "20px",
+                width: "288px",
+                borderRadius: "20px",
+                border: "1px solid rgba(0,255,194,0.15)",
+                background: "rgba(0,255,194,0.03)",
+                padding: "2rem",
+                backdropFilter: "blur(8px)",
+                textDecoration: "none",
+                position: "relative",
+                transition: "all 0.3s ease",
+                boxSizing: "border-box",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.border = "1px solid rgba(0,255,194,0.5)";
+                e.currentTarget.style.background = "rgba(0,255,194,0.06)";
+                e.currentTarget.style.boxShadow = "0 0 40px rgba(0,255,194,0.1), inset 0 0 0 0.5px rgba(0,255,194,0.2)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.border = "1px solid rgba(0,255,194,0.15)";
+                e.currentTarget.style.background = "rgba(0,255,194,0.03)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              {/* Subtle corner accents */}
+              <span style={{
+                position: "absolute", top: "12px", left: "12px",
+                width: "16px", height: "16px",
+                borderTop: "1.5px solid rgba(0,255,194,0.4)",
+                borderLeft: "1.5px solid rgba(0,255,194,0.4)",
+                borderRadius: "4px 0 0 0",
+              }} />
+              <span style={{
+                position: "absolute", bottom: "12px", right: "12px",
+                width: "16px", height: "16px",
+                borderBottom: "1.5px solid rgba(168,85,247,0.4)",
+                borderRight: "1.5px solid rgba(168,85,247,0.4)",
+                borderRadius: "0 0 4px 0",
+              }} />
+
+              {/* Logo area */}
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "80px",
+                borderRadius: "12px",
+                padding: "8px 16px",
+                background: sponsor.darkBg ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.95)",
+                border: sponsor.darkBg ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(200,200,200,0.4)",
+                boxSizing: "border-box",
+              }}>
+                <img
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                  style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                />
+              </div>
+
+              {/* Name */}
+              <p style={{
+                fontFamily: "monospace",
+                fontSize: "13px",
+                fontWeight: "600",
+                letterSpacing: "0.12em",
+                color: "rgba(255,255,255,0.5)",
+                margin: 0,
+                transition: "color 0.3s",
+              }}>
+                {sponsor.name}
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Divider line bottom */}
+      <div style={{
+        position: "absolute",
+        bottom: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "80%",
+        height: "1px",
+        background: "linear-gradient(to right, transparent, rgba(168,85,247,0.25), rgba(0,255,194,0.25), transparent)",
+      }} />
+    </section>
+  );
+};
+
+/* ── Main About Page ── */
 const About = () => {
   return (
-    <div className="background min-h-screen p-6 text-white md:p-10">
-      <div className="container mx-auto flex max-w-[1200px] flex-col gap-10 px-6 text-justify">
-        <section className="mt-10 sm:text-lg">
-          <h1 className="sm:4xl mb-4 text-center font-mono text-3xl font-bold text-white">
-            About <span className="">Competition</span>
-          </h1>
-          <p className="mb-4">
-            <span className="text-accent">MGM Code Clash</span> is flagship
-            coding contest, organized by the Google Developers Group On Campus
-            MGMCOET. Whether you're a beginner or an experienced coder, this
-            event is your chance to challenge yourself, enhance your coding
-            skills, and compete with the best. Get ready for an electrifying
-            experience with exciting challenges, interactive learning, and
-            incredible rewards! Scheduled to take place on&nbsp;
-            <strong className="text-accent">
-              2nd December from 1:45 PM to 3:15 PM
-            </strong>
-            , this competition is crafted to push your problem-solving
-            abilities, logical reasoning, and programming expertise to the next
-            level.
-          </p>
-          <p className="mb-4">
-            The competition features engaging problems based on programming
-            concepts, data structures, and algorithms (DSA), designed to
-            encourage logical thinking and creativity. Participants will have
-            the opportunity to apply their knowledge to practical challenges,
-            fostering both skill development and confidence. The event is
-            divided into two divisions to ensure fair competition and
-            inclusivity, catering to both newcomers and experienced coders
-            alike.
-          </p>
-          <p className="">
-            <span className="text-accent">MGM Code Clash</span> is more than
-            just a coding contest—it's a platform for innovation, collaboration,
-            and growth. Whether you’re a beginner looking to step into the
-            exciting world of coding or a seasoned programmer ready to face
-            tough challenges, this event promises to be a thrilling and
-            enriching experience.
-          </p>
+    <div
+      className="min-h-screen p-6 text-white md:p-10"
+      style={{
+        background: "linear-gradient(135deg,#020d14 0%,#050d1a 30%,#0c0818 60%,#080909 100%)",
+        position: "relative",
+      }}
+    >
+      <GlitterCanvas />
+
+      {/* Soft radial glows */}
+      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
+        background: "radial-gradient(ellipse 60% 40% at 5% 20%,rgba(0,255,194,0.07) 0%,transparent 70%), radial-gradient(ellipse 50% 40% at 95% 80%,rgba(168,85,247,0.08) 0%,transparent 70%)" }}
+      />
+
+      <div
+        className="container mx-auto flex max-w-[1200px] flex-col gap-14 px-6 text-justify text-lg font-medium"
+        style={{ position: "relative", zIndex: 1 }}
+      >
+
+        {/* ── SPONSORS (before About) ── */}
+        <Sponsors />
+
+        {/* ── ABOUT ── */}
+        <section className="text-lg sm:text-xl">
+          <H level={1}>About Competition</H>
+          <p className="mb-4"><G>MGM Code Clash 2.0</G> is back—bigger, sharper, and built for those who don't just code, but compete.</p>
+          <p className="mb-4">Organized by the <G>Google Developers Group On Campus MGMCoET</G>, this flagship coding contest is designed to push your problem-solving skills, logical thinking, and competitive edge to the limit. Whether you're just stepping into the world of DSA or already deep into competitive programming, this is where you test yourself against the best.</p>
+          <p className="mb-4">The contest will be hosted on <G>HackerRank</G> and features carefully curated problems focused on Data Structures and Algorithms, built to challenge your speed, accuracy, and strategy under pressure.</p>
+          <p className="mb-3">To ensure fair competition and maximum growth, Code Clash 2.0 is divided into two tracks:</p>
+          <ul className="mb-4 list-inside list-disc space-y-1 pl-2">
+            <li><G>Learner Track</G> – exclusively for 1st and 2nd year students starting their journey</li>
+            <li><G>Pro Track</G> – open to anyone ready to take on serious competition</li>
+          </ul>
+          <p className="mb-4">From exciting goodies and certificates to prizes like keyboards, mouse, and more, there's plenty to win—but more importantly, there's a reputation to build.</p>
+          <p className="mb-4">Taking place on <strong><G>15th April 2026 (Wednesday)</G></strong> in the Computer Labs, this isn't just another contest. It's the coding event that defines the culture at MGMCoET.</p>
+          <p className="italic text-gray-400">If you're serious about coding, you show up. If you're not… well, someone else will take your spot on the leaderboard.</p>
         </section>
 
-        <section className="">
-          <h2 className="mb-4 text-center font-mono text-3xl font-bold text-white sm:text-4xl">
-            Format
-          </h2>
-          <p className="mb-4 text-lg">
-            The <span className="text-accent">MGM Code Clash</span> is
-            structured to provide a fair and engaging experience for all
-            participants. The competition is divided into two divisions, each
-            tailored to different skill levels:
-          </p>
-          <div className="space-y-6">
-            <div>
-              <h3 className="mb-2 text-2xl font-semibold text-yellow-400">
-                Division 1:
-              </h3>
-              <ul className="list-inside list-disc">
-                <li>Open to 1st and 2nd-year students only.</li>
-                <li>
-                  Designed to encourage newcomers to participate and test their
-                  foundational knowledge, offering a beginner-friendly
-                  environment
-                </li>
-                <li>
-                  Problems will be beginner to intermediate level, focusing on
-                  logical thinking and basic programming concepts.
-                </li>
-              </ul>
+        {/* ── FORMAT ── */}
+        <section>
+          <H>Format</H>
+          <p className="mb-4 text-xl">MGM Code Clash 2.0 is designed to challenge coders across all levels through a structured competitive format. The contest will be conducted on <G>HackerRank</G> and will consist of <G>6 problems</G>:</p>
+
+          <div className="mb-6 flex flex-wrap gap-3">
+            {[
+              { label: "3 Easy",   bg: "rgba(0,255,194,0.12)",  border: "rgba(0,255,194,0.45)" },
+              { label: "2 Medium", bg: "rgba(100,150,255,0.12)", border: "rgba(100,150,255,0.45)" },
+              { label: "1 Hard",   bg: "rgba(168,85,247,0.12)", border: "rgba(168,85,247,0.45)" },
+            ].map(({ label, bg, border }) => (
+              <span key={label} style={{ background: bg, border: `1px solid ${border}`, borderRadius: "999px", padding: "6px 20px", fontWeight: "600", fontSize: "0.95rem" }}>{label}</span>
+            ))}
+          </div>
+
+          <p className="mb-5 text-xl">Participants will compete in two tracks:</p>
+          <div className="space-y-5">
+            <div style={{ borderRadius: "16px", border: "1px solid rgba(0,255,194,0.2)", background: "rgba(0,255,194,0.04)", padding: "1.5rem" }}>
+              <h3 className="mb-2 text-2xl font-semibold"><G>Learner Track</G> <span className="text-base font-normal text-gray-400">(1st &amp; 2nd Year Only)</span></h3>
+              <p className="mb-3 text-gray-300">Focused on building strong fundamentals, this track covers core topics like arrays, sorting, searching, recursion, basic data structures (stack &amp; queue), strings, bit manipulation, and standard problem-solving techniques such as Kadane's Algorithm, prefix sums, and binary search.</p>
+              <p>Difficulty: <G>Beginner to Intermediate</G></p>
             </div>
-            <div>
-              <h3 className="mb-2 text-2xl font-semibold text-yellow-400">
-                Division 2:
-              </h3>
-              <ul className="list-inside list-disc">
-                <li>Open to students from any year.</li>
-                <li>
-                  Provides an opportunity to compete alongside experienced
-                  peers, fostering growth and collaboration.
-                </li>
-                <li>
-                  Problems will be challenging and require an in-depth
-                  understanding of algorithms and data structures.
-                </li>
-              </ul>
+            <div style={{ borderRadius: "16px", border: "1px solid rgba(168,85,247,0.2)", background: "rgba(168,85,247,0.04)", padding: "1.5rem" }}>
+              <h3 className="mb-2 text-2xl font-semibold"><G>Pro Track</G> <span className="text-base font-normal text-gray-400">(Open for All)</span></h3>
+              <p className="mb-3 text-gray-300">Designed for experienced coders, this track spans the full spectrum of Data Structures and Algorithms, including advanced problem-solving across trees, graphs, dynamic programming, greedy algorithms, and more.</p>
+              <p>Difficulty: <G>Intermediate to Advanced</G></p>
             </div>
           </div>
-          <p className="mt-4 text-lg">
-            Each division will have its own set of problems, and participants
-            will compete within their respective groups. The competition will be
-            conducted offline, and participants are expected to submit their
-            solutions within the given time-frame of 1.5 hours. Rankings will be
-            based on the number of problems solved and the efficiency of the
-            solutions.
-          </p>
+          <p className="mt-4 text-lg">Each track will have its own leaderboard, and rankings will be based on <G>accuracy, efficiency, and problem-solving speed</G>.</p>
         </section>
 
-        <section className="">
-          <h2 className="mb-4 text-center font-mono text-3xl font-bold text-white sm:text-4xl">
-            Rules
-          </h2>
-          <ul className="list-inside list-decimal sm:text-lg">
-            <li>
-              <span className="font-bold text-accent">Eligibility:</span> Open
-              to students from MGMCOET, Noida.
-            </li>
-            <li>
-              <span className="font-bold text-accent">
-                Individual Participation:
-              </span>{" "}
-              The contest is strictly individual, team participation is not
-              allowed.
-            </li>
-            <li>
-              <span className="font-bold text-accent">No Plagiarism:</span>{" "}
-              Sharing solutions or copying code will lead to immediate
-              disqualification.
-            </li>
-            <li>
-              <span className="font-bold text-accent">Allowed Resources:</span>{" "}
-              Participants can refer to official documentation for programming
-              languages and concepts but must avoid any external help or tools
-              like AI for problem-solving.
-            </li>
-            <li>
-              <span className="font-bold text-accent">Ranking Criteria: </span>{" "}
-              Participants will be ranked based on the number of problems solved
-              correctly. In case of a tie, the participant with the least total
-              time taken to solve the problems will rank higher.
-            </li>
-            <li>
-              <span className="font-bold text-accent">Code of Conduct:</span>{" "}
-              Maintain professionalism and adhere to the competition’s ethical
-              guidelines. Respect your fellow participants and the organizing
-              team.
-            </li>
+        {/* ── RULES ── */}
+        <section>
+          <H>Rules</H>
+          <ul className="list-inside list-decimal space-y-3 text-lg sm:text-xl">
+            {[
+              ["Eligibility:", "Open to students from MGMCOET, Noida."],
+              ["Individual Participation:", "The contest is strictly individual; team participation is not allowed."],
+              ["No Plagiarism:", "Sharing solutions or copying code will lead to immediate disqualification."],
+              ["Allowed Resources:", "Participants can refer to official documentation for programming languages and concepts but must avoid any external help or tools like AI for problem-solving."],
+              ["Ranking Criteria:", "Participants will be ranked based on the number of problems solved correctly. In case of a tie, the participant with the least total time taken will rank higher."],
+              ["Code of Conduct:", "Maintain professionalism and adhere to the competition's ethical guidelines. Respect your fellow participants and the organizing team."],
+            ].map(([label, text]) => (
+              <li key={label}><span className="font-bold"><G>{label}</G></span> {text}</li>
+            ))}
           </ul>
         </section>
 
+        {/* ── PRIZES ── */}
         <section>
-          <h2 className="mb-8 text-center font-mono text-3xl font-bold text-white sm:text-4xl">
-            Prizes
-          </h2>
-          
-          <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {/* Keyboard */}
-            <div className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all hover:border-accent/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-              <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
-                <img src={keyboardImg} alt="Mechanical Keyboard" className="h-full w-full object-contain animate-float drop-shadow-[0_0_20px_rgba(255,200,0,0.2)] transition-transform duration-300 group-hover:scale-110" />
+          <H>Rewards &amp; Recognition</H>
+
+          {/* Prize images */}
+          <div className="mb-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {[
+              { img: keyboardImg, alt: "Mechanical Keyboard", label: "Keyboard", anim: "animate-float" },
+              { img: mouseImg,    alt: "Gaming Mouse",        label: "Mouse",    anim: "animate-float-delayed" },
+              { img: earbudsImg,  alt: "TWS Earbuds",         label: "Earbuds",  anim: "animate-float-slow" },
+            ].map(({ img, alt, label, anim }) => (
+              <div
+                key={label}
+                className="group relative flex flex-col items-center justify-center p-8 backdrop-blur-md"
+                style={{ borderRadius: "16px", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", transition: "all 0.3s" }}
+                onMouseEnter={e => { e.currentTarget.style.border = "1px solid rgba(0,255,194,0.35)"; e.currentTarget.style.background = "rgba(0,255,194,0.05)"; e.currentTarget.style.boxShadow = "0 0 32px rgba(0,255,194,0.12)"; }}
+                onMouseLeave={e => { e.currentTarget.style.border = "1px solid rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.boxShadow = "none"; }}
+              >
+                <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
+                  <img src={img} alt={alt} className={`h-full w-full object-contain ${anim} drop-shadow-[0_0_20px_rgba(0,255,194,0.2)] transition-transform duration-300 group-hover:scale-110`} />
+                </div>
+                <h3 style={{ color: "#00FFC2", fontWeight: "700", fontSize: "1.1rem", textAlign: "center" }}>{label}</h3>
               </div>
-              <h3 className="text-center text-xl font-bold text-white group-hover:text-yellow-400"> Keyboard</h3>
-            </div>
-            
-            {/* Mouse */}
-            <div className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all hover:border-accent/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-              <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
-                <img src={mouseImg} alt="Gaming Mouse" className="h-full w-full object-contain animate-float-delayed drop-shadow-[0_0_20px_rgba(255,200,0,0.2)] transition-transform duration-300 group-hover:scale-110" />
-              </div>
-              <h3 className="text-center text-xl font-bold text-white group-hover:text-yellow-400"> Mouse</h3>
-            </div>
-            
-            {/* Earbuds */}
-            <div className="group relative flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all hover:border-accent/50 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-              <div className="mb-6 h-52 w-52 sm:h-64 sm:w-64">
-                <img src={earbudsImg} alt="TWS Earbuds" className="h-full w-full object-contain animate-float-slow drop-shadow-[0_0_20px_rgba(255,200,0,0.2)] transition-transform duration-300 group-hover:scale-110" />
-              </div>
-              <h3 className="text-center text-xl font-bold text-white group-hover:text-yellow-400"> Earbuds</h3>
-            </div>
+            ))}
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-semibold text-yellow-400 sm:text-2xl">
-                Division 1 (1st & 2nd-Year Students):
-              </h3>
-              <p className="text-lg">
-                Top 3 winners will receive exciting goodies as rewards.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-yellow-400 sm:text-2xl">
-                Division 2 (Open to All):
-              </h3>
-              <p className="text-lg">
-                Top 3 winners will receive exciting goodies along with an
-                exclusive cash prize.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-yellow-400 sm:text-2xl">
-                Special Rewards:
-              </h3>
-              <ul className="list-inside list-disc text-lg">
-                <li>
-                  Two random participants from each division will receive
-                  customized T-shirts as a token of appreciation.
-                </li>
-                <li>
-                  Every participating student will receive exclusive Code Clash
-                  stickers.
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-yellow-400 sm:text-2xl">
-                Certificates:
-              </h3>
-              <p className="text-base">
-                Every participant will be awarded a certificate of
-                participation, and winners will receive a certificate of
-                excellence.
-              </p>
-            </div>
+          {/* Top performers */}
+          <div className="mb-8 space-y-3">
+            <h3 style={{ color: "#00FFC2", fontSize: "1.4rem", fontWeight: "700" }}>Top Performers</h3>
+            {[
+              "Winner – Pro Track",
+              "1st Runner-Up – Pro Track",
+              "2nd Runner-Up – Learner Track",
+              "Consolation – Learner Track",
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-3" style={{ borderRadius: "10px", border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.03)", padding: "12px 20px" }}>
+                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "linear-gradient(to right,#00FFC2,#a855f7)", flexShrink: 0 }} />
+                <span className="text-gray-200">{item}</span>
+              </div>
+            ))}
+            <p className="pt-2 text-gray-300">Winners will receive exciting prizes including keyboards, mice, earpods, along with exclusive merchandise and swags.</p>
           </div>
-          <p className="mt-10 font-mono text-xl">
-            Follow the rules, compete with integrity, and let your coding skills
-            shine! Good luck! 🚀
-          </p>
+
+          {/* Perks */}
+          <div className="mb-8">
+            <h3 style={{ color: "#00FFC2", fontSize: "1.4rem", fontWeight: "700", marginBottom: "0.75rem" }}>Perks</h3>
+            <ul className="list-inside list-disc space-y-2 text-gray-300 text-lg sm:text-xl">
+              <li>Certificates <span className="text-gray-400">(Online)</span> for all participants</li>
+              <li>Hard Copy Certificates for winners</li>
+              <li>Stickers &amp; Swags for all participants</li>
+            </ul>
+          </div>
+
+          {/* Code of conduct */}
+          <div style={{ borderRadius: "16px", border: "1px solid rgba(168,85,247,0.2)", background: "rgba(168,85,247,0.04)", padding: "1.5rem" }}>
+            <h3 style={{ color: "#00FFC2", fontSize: "1.4rem", fontWeight: "700", marginBottom: "0.5rem" }}>Code of Conduct</h3>
+            <p className="text-gray-300">Participants are expected to compete with honesty and integrity. Any form of unfair means, plagiarism, or malpractice will lead to immediate disqualification.</p>
+            <p className="mt-3 font-mono">Bring your best logic, stay fair, and let your code do the talking.</p>
+          </div>
+
+          <p className="mt-10 font-mono text-xl text-center">Follow the rules, compete with integrity, and let your coding skills shine! </p>
+        </section>
+
+        {/* ── GLIMPSE ── */}
+        <section className="pb-10">
+          <H>Glimpse of Code Clash 1.0 </H>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {[
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/cftqedvrumgtyv3h93o9_jmtcor.webp", caption: "Winner " },
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/e011acue8r5uzcojowph_pl0ipq.webp", caption: "Final Round Moments" },
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/ijxqwdx2loat6fxvatnp_xtahdh.webp", caption: "Coding in Action" },
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/byyokjiilcd76bhhjrsc_lefmum.webp", caption: "All Participants" },
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/i7sfubqhit8bbmjnsysp_ehw19o.webp", caption: "Event Highlights" },
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900905/cweosgvs3mqvtypv1kkg_jnr3ln.webp", caption: "Recognition" },
+            ].map(({ url, caption }) => (
+              <div key={caption} className="group relative cursor-pointer rounded-xl p-[2px]"
+                style={{ background: "linear-gradient(120deg,#00FFC2,#a855f7)", boxShadow: "0 0 12px rgba(0,255,194,0.2)" }}>
+                <div className="relative overflow-hidden rounded-xl bg-black">
+                  <img src={url} alt={caption} className="h-64 w-full object-cover transition duration-500 group-hover:scale-110 group-hover:brightness-75" />
+                  <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%)",
+                    pointerEvents: "none",
+                  }} />
+                  <div className="absolute inset-0 flex translate-y-4 items-center justify-center opacity-0 transition-all duration-700 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                    <p className="elegant-text text-center text-lg font-bold text-white">{caption}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
       </div>
     </div>
