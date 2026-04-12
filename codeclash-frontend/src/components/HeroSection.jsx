@@ -252,10 +252,11 @@ const HeroSection = () => {
           }
           .hero-overlay-desktop {
             background: linear-gradient(
-              to bottom,
-              rgba(0,0,0,0.80) 0%,
-              rgba(0,0,0,0.50) 40%,
-              rgba(0,0,0,0.78) 100%
+              to right,
+              rgba(0,0,0,0.98) 0%,   /* darker left */
+              rgba(0,0,0,0.85) 30%,  /* strong coverage */
+              rgba(0,0,0,0.35) 65%,  /* smoother fade */
+              rgba(0,0,0,0.01) 100%  /* almost clear right */
             ) !important;
           }
         }
@@ -268,12 +269,12 @@ const HeroSection = () => {
             background-repeat: no-repeat;
           }
           .hero-overlay-mobile {
-            background: linear-gradient(
+              background: linear-gradient(
               to right,
-              rgba(0,0,0,0.95) 0%,
-              rgba(0,0,0,0.65) 40%,
-              rgba(0,0,0,0.25) 70%,
-              rgba(0,0,0,0.08) 100%
+              rgba(0,0,0,0.98) 0%,   /* darker left */
+              rgba(0,0,0,0.85) 30%,  /* strong coverage */
+              rgba(0,0,0,0.35) 65%,  /* smoother fade */
+              rgba(0,0,0,0.02) 100%  /* almost clear right */
             ) !important;
           }
         }

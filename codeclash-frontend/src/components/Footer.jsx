@@ -241,8 +241,7 @@ export default function Footer() {
           className="pb-2 pt-1 font-mono text-sm"
           style={{ color: "rgba(255,255,255,0.35)" }}
         >
-          &copy; {new Date().getFullYear()} GDG On Campus MGMCOET. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} GDG On Campus MGMCOET. All rights reserved.
         </p>
       </div>
     </footer>
