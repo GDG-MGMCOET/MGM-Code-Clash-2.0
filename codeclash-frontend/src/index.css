@@ -40,3 +40,17 @@ html {
   font-style: italic;
   letter-spacing: 1px;
 }
+
+/* ── Sponsor marquee ── */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.sponsor-marquee-track {
+  animation: marqueeScroll 20s linear infinite;
+}
+
+.sponsor-marquee-wrapper:hover .sponsor-marquee-track {
+  animation-play-state: paused;
+}

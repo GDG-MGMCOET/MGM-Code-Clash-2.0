@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import keyboardImg from "../assets/prizes/keyboard1.png";
-import mouseImg from "../assets/prizes/mouse1.png";
-import earbudsImg from "../assets/prizes/Adobe Express - file.png";
+const keyboardImg = "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775927937/keyboard1_plgkpn.png";
+const mouseImg    = "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775927938/mouse1_rl3z2c.png";
+const earbudsImg  = "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775927937/Adobe_Express_-_file_rdd3vi.png";
 import kickrLogo from "../assets/prizes/kickr_logo.webp";
 import gajoobaLogo from "../assets/prizes/Gajooba-PNG-1536x459.webp";
 
@@ -161,11 +161,8 @@ const Sponsors = () => {
           }} />
         </div>
 
-        {/* Sponsor Cards */}
-        <div style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
+        {/* Sponsor Cards — mobile only */}
+        <div className="flex flex-wrap justify-center md:hidden" style={{
           gap: "2.5rem",
           padding: "0 24px",
           marginBottom: "3.5rem",
@@ -255,6 +252,26 @@ const Sponsors = () => {
             </a>
           ))}
         </div>
+
+        {/* ── Marquee Strip — tablet/laptop only ── */}
+        <div className="hidden md:block sponsor-marquee-wrapper relative rounded-2xl overflow-hidden border-y border-white/10 bg-white/5 py-4 backdrop-blur-sm">
+          {/* Fade edges */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-black to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-black to-transparent" />
+          {/* The track — two identical halves */}
+          <div className="sponsor-marquee-track flex items-center">
+            <div className="flex shrink-0 items-center" aria-hidden="false">
+              {marqueeItems.map((sponsor, i) => (
+                <SponsorLogo key={`a-${i}`} sponsor={sponsor} />
+              ))}
+            </div>
+            <div className="flex shrink-0 items-center" aria-hidden="true">
+              {marqueeItems.map((sponsor, i) => (
+                <SponsorLogo key={`b-${i}`} sponsor={sponsor} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Divider line bottom */}
@@ -297,19 +314,163 @@ const About = () => {
         <Sponsors />
 
         {/* ── ABOUT ── */}
-        <section className="text-lg sm:text-xl">
+        <section>
           <H level={1}>About Competition</H>
-          <p className="mb-4"><G>MGM Code Clash 2.0</G> is back—bigger, sharper, and built for those who don't just code, but compete.</p>
-          <p className="mb-4">Organized by the <G>Google Developers Group On Campus MGMCoET</G>, this flagship coding contest is designed to push your problem-solving skills, logical thinking, and competitive edge to the limit. Whether you're just stepping into the world of DSA or already deep into competitive programming, this is where you test yourself against the best.</p>
-          <p className="mb-4">The contest will be hosted on <G>HackerRank</G> and features carefully curated problems focused on Data Structures and Algorithms, built to challenge your speed, accuracy, and strategy under pressure.</p>
-          <p className="mb-3">To ensure fair competition and maximum growth, Code Clash 2.0 is divided into two tracks:</p>
-          <ul className="mb-4 list-inside list-disc space-y-1 pl-2">
-            <li><G>Learner Track</G> – exclusively for 1st and 2nd year students starting their journey</li>
-            <li><G>Pro Track</G> – open to anyone ready to take on serious competition</li>
-          </ul>
-          <p className="mb-4">From exciting goodies and certificates to prizes like keyboards, mouse, and more, there's plenty to win—but more importantly, there's a reputation to build.</p>
-          <p className="mb-4">Taking place on <strong><G>15th April 2026 (Wednesday)</G></strong> in the Computer Labs, this isn't just another contest. It's the coding event that defines the culture at MGMCoET.</p>
-          <p className="italic text-gray-400">If you're serious about coding, you show up. If you're not… well, someone else will take your spot on the leaderboard.</p>
+
+          {/* Intro blurb */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
+            <p style={{ fontSize: "clamp(1rem,3vw,1.2rem)", lineHeight: 1.75, color: "#e5e7eb", margin: 0 }}>
+              <G>MGM Code Clash 2.0</G> is back — bigger, sharper, and more competitive than ever.
+            </p>
+            <p style={{ fontSize: "clamp(0.95rem,2.5vw,1.1rem)", lineHeight: 1.75, color: "#9ca3af", margin: 0 }}>
+              Organized by <G>GDG On Campus MGMCoET</G>, this flagship coding contest is built to test
+              your problem-solving, logic, and speed under pressure.
+            </p>
+            <p style={{ fontSize: "clamp(0.95rem,2.5vw,1.1rem)", lineHeight: 1.75, color: "#9ca3af", margin: 0 }}>
+              Hosted on <G>HackerRank</G>, the contest features curated DSA challenges designed for
+              real competition.
+            </p>
+          </div>
+
+          {/* Two Tracks */}
+          <div style={{ marginBottom: "2rem" }}>
+            <p style={{
+              fontFamily: "monospace",
+              fontSize: "11px",
+              fontWeight: "600",
+              letterSpacing: "0.3em",
+              color: "#00FFC2",
+              textTransform: "uppercase",
+              marginBottom: "1rem",
+            }}>
+              Two Tracks
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              {/* Learner Track */}
+              <div style={{
+                borderRadius: "14px",
+                border: "1px solid rgba(0,255,194,0.25)",
+                background: "rgba(0,255,194,0.04)",
+                padding: "1.1rem 1.25rem",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "1rem",
+              }}>
+                <span style={{
+                  flexShrink: 0,
+                  marginTop: "3px",
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  background: "rgba(0,255,194,0.12)",
+                  border: "1px solid rgba(0,255,194,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "14px",
+                }}>🌱</span>
+                <div>
+                  <p style={{ margin: "0 0 4px", fontWeight: "700", fontSize: "clamp(0.95rem,2.5vw,1.05rem)", color: "#00FFC2" }}>
+                    Learner Track
+                  </p>
+                  <p style={{ margin: 0, fontSize: "clamp(0.85rem,2.2vw,0.95rem)", color: "#9ca3af" }}>
+                    1st &amp; 2nd year students
+                  </p>
+                </div>
+              </div>
+
+              {/* Pro Track */}
+              <div style={{
+                borderRadius: "14px",
+                border: "1px solid rgba(168,85,247,0.25)",
+                background: "rgba(168,85,247,0.04)",
+                padding: "1.1rem 1.25rem",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "1rem",
+              }}>
+                <span style={{
+                  flexShrink: 0,
+                  marginTop: "3px",
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  background: "rgba(168,85,247,0.12)",
+                  border: "1px solid rgba(168,85,247,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "14px",
+                }}>⚡</span>
+                <div>
+                  <p style={{ margin: "0 0 4px", fontWeight: "700", fontSize: "clamp(0.95rem,2.5vw,1.05rem)", color: "#a855f7" }}>
+                    Pro Track
+                  </p>
+                  <p style={{ margin: 0, fontSize: "clamp(0.85rem,2.2vw,0.95rem)", color: "#9ca3af" }}>
+                    Open for all competitive coders
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Date & Venue */}
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.75rem",
+            marginBottom: "2rem",
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              borderRadius: "12px",
+              border: "1px solid rgba(0,255,194,0.2)",
+              background: "rgba(0,0,0,0.35)",
+              padding: "10px 16px",
+              backdropFilter: "blur(8px)",
+            }}>
+              <span style={{ fontSize: "16px" }}>📅</span>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <span style={{ fontSize: "clamp(0.8rem,2.5vw,0.9rem)", fontWeight: "700", color: "#e5e7eb" }}>15 April 2026</span>
+                <span style={{ fontSize: "0.7rem", color: "#9ca3af" }}>Wednesday</span>
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              borderRadius: "12px",
+              border: "1px solid rgba(168,85,247,0.2)",
+              background: "rgba(0,0,0,0.35)",
+              padding: "10px 16px",
+              backdropFilter: "blur(8px)",
+            }}>
+              <span style={{ fontSize: "16px" }}>📍</span>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <span style={{ fontSize: "clamp(0.8rem,2.5vw,0.9rem)", fontWeight: "700", color: "#e5e7eb" }}>Computer Labs</span>
+                <span style={{ fontSize: "0.7rem", color: "#9ca3af" }}>MGMCoET Campus</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Closing line */}
+          <div style={{
+            borderRadius: "14px",
+            border: "1px solid rgba(255,255,255,0.07)",
+            background: "linear-gradient(135deg, rgba(0,255,194,0.04) 0%, rgba(168,85,247,0.04) 100%)",
+            padding: "1.1rem 1.25rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+          }}>
+            <span style={{ fontSize: "18px", flexShrink: 0 }}>🏆</span>
+            <p style={{ margin: 0, fontSize: "clamp(0.9rem,2.5vw,1rem)", lineHeight: 1.65, color: "#d1d5db" }}>
+              Win exciting prizes, goodies, and certificates — but more importantly,{" "}
+              <span style={{ color: "#00FFC2", fontWeight: "600" }}>earn your spot on the leaderboard.</span>
+            </p>
+          </div>
         </section>
 
         {/* ── FORMAT ── */}
@@ -429,7 +590,7 @@ const About = () => {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/cftqedvrumgtyv3h93o9_jmtcor.webp", caption: "Winner " },
-              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/e011acue8r5uzcojowph_pl0ipq.webp", caption: "Final Round Moments" },
+              { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/n0fyvliw6nyt6fuqq7g3_boi6qh.webp", caption: "Organizers & Champions" },
               { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/ijxqwdx2loat6fxvatnp_xtahdh.webp", caption: "Coding in Action" },
               { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/byyokjiilcd76bhhjrsc_lefmum.webp", caption: "All Participants" },
               { url: "https://res.cloudinary.com/dpr83w1ub/image/upload/v1775900086/i7sfubqhit8bbmjnsysp_ehw19o.webp", caption: "Event Highlights" },

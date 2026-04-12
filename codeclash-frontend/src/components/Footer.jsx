@@ -223,9 +223,22 @@ export default function Footer() {
 
           </div>
         </div>
+        {/* Developed by */}
+        <p className="pb-1 pt-2 font-mono text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+          Developed by{" "}
+          {["Madhav", "Shambhavi", "Tushar", "Muskan", "Rishi", "Parineeta"].map((name, i, arr) => (
+            <span key={name}>
+              <span style={{ backgroundImage: "linear-gradient(to right,#00FFC2,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontWeight: "700" }}>
+                {name}
+              </span>
+              {i < arr.length - 1 && <span style={{ color: "rgba(255,255,255,0.5)" }}> · </span>}
+            </span>
+          ))}
+        </p>
+
         {/* Copyright */}
         <p
-          className="pb-2 pt-2 font-mono text-sm"
+          className="pb-2 pt-1 font-mono text-sm"
           style={{ color: "rgba(255,255,255,0.35)" }}
         >
           &copy; {new Date().getFullYear()} GDG On Campus MGMCOET. All rights

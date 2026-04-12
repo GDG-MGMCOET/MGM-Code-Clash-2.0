@@ -24,7 +24,7 @@ export const formatFormData = ({ data }) => {
     division: data.division,
     standard: data.standard,
     hackerrank_username: data.hackerrank_username.trim(),
-    class_roll_no: data.class_roll_number,
+    class_roll_no: data.university_roll_number,
   };
   return formattedData;
 };
@@ -38,7 +38,7 @@ export const clearForm = ({ formInstance }) => {
     division: "",
     standard: "",
     hackerrank_username: "",
-    class_roll_number: "",
+    university_roll_number: "",
   });
 };
 
