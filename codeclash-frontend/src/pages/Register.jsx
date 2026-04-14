@@ -369,10 +369,10 @@ export default function Register() {
               {/* Screenshot upload */}
               <div className="mt-4 w-full">
                 <div className="text-base text-white">
-                  Kickr Tech. Screenshot <span className="text-red-500">*</span>
+                  Kickr Tech. Screenshot <span className="text-white/50 text-sm">(optional)</span>
                 </div>
                 <div className="flex items-center gap-4 -mt-1">
-                  <Form.Item name="screenshot" valuePropName="fileList" getValueFromEvent={normFile} rules={[{ required: true, message: "Please upload screenshot" }]} className="mb-0">
+                  <Form.Item name="screenshot" valuePropName="fileList" getValueFromEvent={normFile} rules={[]} className="mb-0">
                     <Upload name="screenshot" listType="picture-card" showUploadList={false} beforeUpload={() => false} maxCount={1} accept="image/*" className="mt-2 [&_.ant-upload]:!h-[100px] [&_.ant-upload]:!w-[100px]">
                       {screenshotFiles && screenshotFiles.length > 0 ? (
                         <img src={URL.createObjectURL(screenshotFiles[0].originFileObj)} alt="screenshot" className="h-full w-full object-cover p-2" />
