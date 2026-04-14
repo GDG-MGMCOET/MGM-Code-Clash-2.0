@@ -55,8 +55,23 @@ const CountdownBox = ({ value, label }) => (
   </div>
 );
 
+const REGISTRATION_DEADLINE = new Date("2026-04-15T10:00:00+05:30");
+const CONTEST_START        = new Date("2026-04-15T11:00:00+05:30");
+
 const HeroSection = () => {
-  const { days, hours, minutes, seconds } = useCountdown("2026-04-15T00:00:00+05:30");
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const registrationClosed = now >= REGISTRATION_DEADLINE.getTime();
+
+  const countdownTarget = registrationClosed
+    ? CONTEST_START.toISOString()
+    : REGISTRATION_DEADLINE.toISOString();
+
+  const { days, hours, minutes, seconds } = useCountdown(countdownTarget);
 
   return (
     <div className="hero-bg" style={{
@@ -147,11 +162,16 @@ const HeroSection = () => {
           </p>
 
           {/* Countdown */}
-          <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
-            <CountdownBox value={days}    label="Days" />
-            <CountdownBox value={hours}   label="Hours" />
-            <CountdownBox value={minutes} label="Mins" />
-            <CountdownBox value={seconds} label="Secs" />
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <span style={{ fontFamily: "monospace", fontSize: "0.7rem", fontWeight: "600", letterSpacing: "0.12em", textTransform: "uppercase", color: registrationClosed ? "#a78bfa" : "#00FFC2" }}>
+              {registrationClosed ? "⚡ Contest begins in" : "⏳ Registration closes in"}
+            </span>
+            <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
+              <CountdownBox value={days}    label="Days" />
+              <CountdownBox value={hours}   label="Hours" />
+              <CountdownBox value={minutes} label="Mins" />
+              <CountdownBox value={seconds} label="Secs" />
+            </div>
           </div>
 
           {/* Date & Venue chips */}
@@ -174,30 +194,51 @@ const HeroSection = () => {
 
           {/* CTA */}
           <div style={{ marginTop: "0.25rem" }}>
-            <Link to="/register">
-              <button
+            {registrationClosed ? (
+              <div
                 style={{
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
                   gap: "8px",
                   borderRadius: "9999px",
-                  background: "linear-gradient(to right, #00FFC2, #a855f7)",
+                  border: "1px solid rgba(167,139,250,0.4)",
+                  background: "rgba(167,139,250,0.08)",
                   padding: "12px 28px",
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: "700",
                   fontSize: "clamp(0.85rem,2.5vw,1rem)",
-                  color: "#000",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "transform 0.2s, box-shadow 0.2s",
+                  color: "#a78bfa",
+                  cursor: "default",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(0,255,194,0.4)"; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)";   e.currentTarget.style.boxShadow = "none"; }}
               >
-                <span>REGISTER NOW</span>
-                <Icon path={mdiChevronRight} size={1} />
-              </button>
-            </Link>
+                <span>REGISTRATION CLOSED</span>
+              </div>
+            ) : (
+              <Link to="/register">
+                <button
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    borderRadius: "9999px",
+                    background: "linear-gradient(to right, #00FFC2, #a855f7)",
+                    padding: "12px 28px",
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: "700",
+                    fontSize: "clamp(0.85rem,2.5vw,1rem)",
+                    color: "#000",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "transform 0.2s, box-shadow 0.2s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(0,255,194,0.4)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)";   e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  <span>REGISTER NOW</span>
+                  <Icon path={mdiChevronRight} size={1} />
+                </button>
+              </Link>
+            )}
           </div>
         </div>
 

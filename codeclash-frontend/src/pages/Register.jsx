@@ -203,7 +203,7 @@ export default function Register() {
           <span style={{ position: "absolute", bottom: "14px", right: "14px", width: "20px", height: "20px", borderBottom: "1.5px solid rgba(168,85,247,0.5)", borderRight: "1.5px solid rgba(168,85,247,0.5)", borderRadius: "0 0 4px 0" }} />
 
           {/* Kickr notice */}
-          <div className="mb-5 space-y-2 rounded-xl p-4 text-center" style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(0,255,194,0.12)" }}>
+          {/* <div className="mb-5 space-y-2 rounded-xl p-4 text-center" style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(0,255,194,0.12)" }}>
             <p className="text-sm font-medium sm:text-base" style={{ color: "rgb(0,255,194)" }}>
               ⚠️ Before submitting, please fill out the Hackathon form at{" "}
               <a href="https://www.kickrcodemania.com/" target="_blank" rel="noreferrer" className="underline" style={{ color: "rgb(0,255,194)" }}
@@ -216,7 +216,7 @@ export default function Register() {
             <p className="text-xs text-white/70 sm:text-sm">
               Please attach a screenshot of your Kickr registration below to help us fulfill sponsorship requirements and ensure a smooth experience. Thank you.
             </p>
-          </div>
+          </div> */}
 
           {/* Global style overrides */}
           <style>{`
