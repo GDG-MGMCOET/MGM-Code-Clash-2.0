@@ -77,13 +77,13 @@ export default function Header() {
             </li>
             <li>
               <Link
-                to={contestOpen ? "/tracks" : "/register"}
+                to="/winners"
                 className="cursor-pointer transition-colors duration-200"
                 style={{ color: "rgb(0, 255, 194)" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(0,255,194,0.6)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgb(0,255,194)")}
               >
-                {contestOpen ? "Join Contest" : "Register"}
+                Leaderboard
               </Link>
             </li>
             <li>

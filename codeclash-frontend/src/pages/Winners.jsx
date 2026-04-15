@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import bg from "../assets/prizes/bg.png";
 
@@ -6,14 +7,14 @@ import bg from "../assets/prizes/bg.png";
    ══════════════════════════════════════════════════════ */
 const WINNERS = {
   learner: [
-    { rank: 1, name: "Aarav Mehta",   studentClass: "FT-2" },
-    { rank: 2, name: "Sneha Joshi",   studentClass: "STCS-A" },
-    { rank: 3, name: "Rohan Patil",   studentClass: "FT-1" },
+    { rank: 1, name: "Adnan",   studentClass: "" },
+    { rank: 2, name: "Abrar",   studentClass: "" },
+    { rank: 3, name: "Ritik",   studentClass: "" },
   ],
   pro: [
-    { rank: 1, name: "Vikram Nair",   studentClass: "TTCS-B" },
-    { rank: 2, name: "Priya Sharma",  studentClass: "BTCS" },
-    { rank: 3, name: "Aryan Gupta",   studentClass: "STCS-C" },
+    { rank: 1, name: "Rohan",     studentClass: "STCS" },
+    { rank: 2, name: "Princess",  studentClass: "TTCS" },
+    { rank: 3, name: "Prateek",   studentClass: "STCS" },
   ],
 };
 
