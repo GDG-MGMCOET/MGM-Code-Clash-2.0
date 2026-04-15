@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const CONTEST_OPEN = new Date("2026-04-15T11:20:00+05:30");
+const CONTEST_OPEN = new Date("2026-04-15T11:00:00+05:30");
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

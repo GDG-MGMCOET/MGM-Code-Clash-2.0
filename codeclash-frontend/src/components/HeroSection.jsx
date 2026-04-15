@@ -58,11 +58,12 @@ const CountdownBox = ({ value, label }) => (
 
 const REGISTRATION_DEADLINE = new Date("2026-04-15T10:00:00+05:30");
 const CONTEST_START        = new Date("2026-04-15T11:00:00+05:30");
-const CONTEST_OPEN         = new Date("2026-04-15T11:20:00+05:30");
+const CONTEST_OPEN         = new Date("2026-04-15T11:00:00+05:30");
 
 const HeroSection = () => {
   const [now, setNow] = useState(Date.now());
-  useEffect(() => {
+  useEffect(() =>
+    {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
