@@ -199,7 +199,7 @@ const HeroSection = () => {
           {/* CTA */}
           <div style={{ marginTop: "0.25rem" }}>
             {contestOpen ? (
-              <Link to="/tracks">
+              <Link to="/winners">
                 <button
                   style={{
                     display: "flex",
@@ -219,8 +219,8 @@ const HeroSection = () => {
                   onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.boxShadow = "0 0 24px rgba(0,255,194,0.5)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)";   e.currentTarget.style.boxShadow = "none"; }}
                 >
-                  <Icon path={mdiRocketLaunchOutline} size={0.9} />
-                  <span>JOIN CONTEST</span>
+                  <Icon path={mdiTrophyOutline} size={0.9} />
+                  <span>WINNERS</span>
                   <Icon path={mdiChevronRight} size={1} />
                 </button>
               </Link>
