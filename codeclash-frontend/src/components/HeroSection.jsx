@@ -8,6 +8,7 @@ import {
   mdiAtom,
   mdiTrophyOutline,
   mdiSprout,
+  mdiRocketLaunchOutline,
 } from "@mdi/js";
 
 /* ── Countdown hook ── */
@@ -57,6 +58,7 @@ const CountdownBox = ({ value, label }) => (
 
 const REGISTRATION_DEADLINE = new Date("2026-04-15T10:00:00+05:30");
 const CONTEST_START        = new Date("2026-04-15T11:00:00+05:30");
+const CONTEST_OPEN         = new Date("2026-04-15T11:20:00+05:30");
 
 const HeroSection = () => {
   const [now, setNow] = useState(Date.now());
@@ -66,6 +68,7 @@ const HeroSection = () => {
   }, []);
 
   const registrationClosed = now >= REGISTRATION_DEADLINE.getTime();
+  const contestOpen        = now >= CONTEST_OPEN.getTime();
 
   const countdownTarget = registrationClosed
     ? CONTEST_START.toISOString()
@@ -194,7 +197,33 @@ const HeroSection = () => {
 
           {/* CTA */}
           <div style={{ marginTop: "0.25rem" }}>
-            {registrationClosed ? (
+            {contestOpen ? (
+              <Link to="/tracks">
+                <button
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    borderRadius: "9999px",
+                    background: "linear-gradient(to right, #00FFC2, #a855f7)",
+                    padding: "12px 28px",
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: "700",
+                    fontSize: "clamp(0.85rem,2.5vw,1rem)",
+                    color: "#000",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "transform 0.2s, box-shadow 0.2s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.boxShadow = "0 0 24px rgba(0,255,194,0.5)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)";   e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  <Icon path={mdiRocketLaunchOutline} size={0.9} />
+                  <span>JOIN CONTEST</span>
+                  <Icon path={mdiChevronRight} size={1} />
+                </button>
+              </Link>
+            ) : registrationClosed ? (
               <div
                 style={{
                   display: "inline-flex",

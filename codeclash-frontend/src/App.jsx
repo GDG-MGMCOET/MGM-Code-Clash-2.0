@@ -1,6 +1,8 @@
 import React from "react";
 import Register from "./pages/Register";
 import LandingPage from "./pages/landingPage";
+import Winners from "./pages/Winners";
+import Tracks from "./pages/Tracks";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -20,7 +22,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/register" element={<RegisterRoute />} />
+          <Route path="/register" element={<RegisterRoute />} />  
+          <Route path="/winners" element={<Winners />} />
+          <Route path="/tracks" element={<Tracks />} />
         </Routes>
       </Router>
     </>

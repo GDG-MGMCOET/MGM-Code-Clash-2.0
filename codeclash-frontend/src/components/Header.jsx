@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const CONTEST_OPEN = new Date("2026-04-15T11:20:00+05:30");
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [contestOpen, setContestOpen] = useState(Date.now() >= CONTEST_OPEN.getTime());
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +15,17 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (contestOpen) return;
+    const id = setInterval(() => {
+      if (Date.now() >= CONTEST_OPEN.getTime()) {
+        setContestOpen(true);
+        clearInterval(id);
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  }, [contestOpen]);
 
   return (
     <header
@@ -63,13 +77,13 @@ export default function Header() {
             </li>
             <li>
               <Link
-                to="/register"
+                to={contestOpen ? "/tracks" : "/register"}
                 className="cursor-pointer transition-colors duration-200"
                 style={{ color: "rgb(0, 255, 194)" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(0,255,194,0.6)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgb(0,255,194)")}
               >
-                Register
+                {contestOpen ? "Join Contest" : "Register"}
               </Link>
             </li>
             <li>

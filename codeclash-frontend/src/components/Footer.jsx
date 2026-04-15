@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const CONTEST_OPEN = new Date("2026-04-15T11:20:00+05:30");
 
 /* ── Canvas glitter particles ── */
 const GlitterCanvas = () => {
@@ -58,6 +60,19 @@ const GlitterCanvas = () => {
 };
 
 export default function Footer() {
+  const [contestOpen, setContestOpen] = useState(Date.now() >= CONTEST_OPEN.getTime());
+
+  useEffect(() => {
+    if (contestOpen) return;
+    const id = setInterval(() => {
+      if (Date.now() >= CONTEST_OPEN.getTime()) {
+        setContestOpen(true);
+        clearInterval(id);
+      }
+    }, 1000);
+    return () => clearInterval(id);
+  }, [contestOpen]);
+
   const codeText = " <code/> ";
   const mailtext = " <mail/> ";
 
@@ -129,7 +144,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-5 md:flex-row lg:w-4/5 xl:w-3/5">
             <div className="flex flex-col gap-5">
               <h3 className="text-3xl font-semibold" style={gradientText}>
-                Register Now
+                {contestOpen ? "Join Contest" : "Register Now"}
               </h3>
               <p className="text-2xl sm:text-3xl">
                 Learn,
@@ -139,14 +154,14 @@ export default function Footer() {
                 &amp; Compete
               </p>
             </div>
-            <Link to="/register" className="rounded-full">
+            <Link to={contestOpen ? "/tracks" : "/register"} className="rounded-full">
               <button
                 className="rounded-full px-12 py-3 font-mono font-bold text-black md:text-lg"
                 style={gradientBtn}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
               >
-                Register Now
+                {contestOpen ? "Join Contest" : "Register Now"}
               </button>
             </Link>
           </div>
